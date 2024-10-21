@@ -1,0 +1,23 @@
+{% extends 'dash/base.html' %}
+
+{% block content %}
+{% if messages %}
+
+    {% for message in messages %}
+        {{ message }}
+    {% endfor %}
+
+{% endif %}
+
+<form method='post' action={% url 'dash:index' %}>
+    {% csrf_token %}
+
+    <label for="patient-id">Patient ID</label>
+    <input type="text" name="patient_id" value="">
+    <button type="submit">Submit</button>
+
+    {% if summary %}
+        {{ summary|safe }}
+    {% endif %}
+</form>
+{% endblock %}
