@@ -3,12 +3,26 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title></title>
-        <link href="css/style.css" rel="stylesheet">
-    </head>
-    <body>
-        {% block content %}
+        <title>{% block title %}{% endblock %}</title>
+        <script src="https://cdn.tailwindcss.com"></script>
+        <link rel="preconnect" href="https://rsms.me/">
+        <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
 
-        {% endblock %}
+        <style>
+            :root {
+              font-family: Inter, sans-serif;
+              font-feature-settings: 'liga' 1, 'calt' 1; /* fix for Chrome */
+            }
+            @supports (font-variation-settings: normal) {
+              :root { font-family: InterVariable, sans-serif; }
+            }
+            * {
+                font-family: Inter, sans-serif;
+            }
+        </style>
+    </head>
+    <body class="overflow-hidden bg-gray-50 font-sans antialiased">
+        {% block content %}
+        {% endblock content %}
     </body>
 </html>

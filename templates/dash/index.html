@@ -1,23 +1,33 @@
 {% extends 'dash/base.html' %}
 
 {% block content %}
-{% if messages %}
-
-    {% for message in messages %}
-        {{ message }}
-    {% endfor %}
-
-{% endif %}
-
-<form method='post' action={% url 'dash:index' %}>
-    {% csrf_token %}
-
-    <label for="patient-id">Patient ID</label>
-    <input type="text" name="patient_id" value="">
-    <button type="submit">Submit</button>
-
-    {% if summary %}
-        {{ summary|safe }}
-    {% endif %}
-</form>
+<div class="flex min-h-dvh items-center justify-center p-6 lg:p-8">
+    <div
+        class="w-full md:w-8/12 max-w-md rounded-xl bg-white shadow-md ring-1 ring-black/5 transition ease-in-out delay-150 bg-blue-500 duration-500 hover:-translate-y-1 hover:scale-120 max-h-96 overflow-y-auto">
+        <form method='post' action={% url 'dash:index' %} class="p-7 sm:p-11">
+            {% csrf_token %}
+            {% if messages %}
+                <div class="error-area mt-4">
+                {% for message in messages %}
+                    <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-lg relative" role="alert">
+                        <span class="text-sm/5 font-medium">{{ message }}</span>
+                    </div>
+                {% endfor %}
+                </div>
+            {% endif %}
+        
+            <div class="mt-8 space-y-3">
+                <label for="patient-id">Patient ID</label>
+                <input required 
+                           class="block w-full rounded-lg border border-transparent shadow {% if err_color != None %}ring-2 ring-red-500{% else %}ring-1 ring-black/10{% endif %} px-[calc(theme(spacing.2)-1px)] py-[calc(theme(spacing[1.5])-1px)] text-base/6 sm:text-sm/6 duration-100 focus:outline"
+                type="text" name="patient_id" value="">
+            </div>
+            <div class="mt-8">
+                <button
+                    class="w-full inline-flex font-bold items-center justify-center px-4 py-[calc(theme(spacing.2)-1px)] rounded-lg border border-transparent bg-gray-950 shadow-md text-base text-white duration-300 hover:bg-gray-200 hover:text-gray-800"
+                    type="submit">Submit</button>
+            </div>
+        </form>
+    </div>
+</div>
 {% endblock %}

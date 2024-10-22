@@ -21,14 +21,17 @@ def generate_summary(text: str):
                     'role': 'user',
                     'content': text # feed the model with data in order to proeed with summarization process
                 }
-            ]
+            ],
+            options= {
+                    'top_k': 20,
+                }
         )
         return convert_to_html(response['message']['content']) # print the response from the model
         
     except Exception as e:
         # handle exceptions
         print(f"An error occurred: {e}")
-        return "Something went wrong. Chech logs"
+        return None
 
 def get_details(patient_id: str):
     patient = Patient.objects.get(uniq_id=patient_id)
@@ -65,7 +68,7 @@ def get_details(patient_id: str):
         for meds in patient.medications_set.all()
     ]
 
-    format_text = f"""
+    formatted_details = f"""
     Name: {patient_name}
     Date of Birth: {dob}
     Gender: {gender}
@@ -75,4 +78,4 @@ def get_details(patient_id: str):
     Medications: {medications}
     """
 
-    return format_text
+    return formatted_details
