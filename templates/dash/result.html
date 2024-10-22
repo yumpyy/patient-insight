@@ -1,7 +1,7 @@
 {% extends 'dash/base.html' %}
 
 {% block content %}
-<div class="flex min-h-dvh items-center justify-center p-6 lg:p-8">
+<div class="isolate flex min-h-dvh items-center justify-center p-6 lg:p-8">
     <div
         class="w-full md:w-8/12 max-w-md rounded-xl bg-white shadow-md ring-1 ring-black/5 transition ease-in-out delay-150 bg-blue-500 duration-500 hover:-translate-y-1 hover:scale-120 max-h-screen overflow-y-auto">
         <form method='post' action={% url 'dash:index' %} class="p-7 sm:p-11">
