@@ -5,22 +5,21 @@ from .models import Patient
 from . import utils
 
 def index(request):
-    """
-    handles the request for /dashboard/ page
-    """
+    # handles the request for /dashboard/ page
     if request.POST:
-        """
-        execute the following code only when a POST request is sent
-        """
+        # execute the following code only when a POST request is sent
         patient_id = request.POST['patient_id'].upper()
         if Patient.objects.filter(uniq_id=patient_id).exists():
-            patient = Patient.objects.get(uniq_id=patient_id)
+            # if the patient id is valid, do the futher operations
+            patient = Patient.objects.get(uniq_id=patient_id) # get the row matching the patient id
+
+            # get all the general information about the user
             patient_name = patient.name
             dob = patient.dob
             gender = patient.gender
 
-            details_formatted = utils.get_details(patient_id)
-            summary = utils.generate_summary(details_formatted)
+            details_formatted = utils.get_details(patient_id) # fetch the prompt with all the patients details
+            summary = utils.generate_summary(details_formatted) # summarize the details with the help of llm
 
             if summary == None:
                 messages.error(request, 'Something went wrong, Check the logs')
